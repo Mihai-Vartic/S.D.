@@ -91,6 +91,8 @@ def parti(vector, inc, fin):
     return j
 
 f = open('date.in')
+g = open('date.out', 'w')
+
 ok = 0
 nr_teste = int(f.readline())
 
@@ -104,48 +106,64 @@ for i in range(nr_teste):
     if ok == 1:
         inceput = time.time()
         print('Bubblesort:')
+        g.write('Bubblesort: ')
         bubblesort(vector, n)
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
+        g.write(str(timp_sortare))
+        g.write('\n')
         testare(vector, n)
 
     if ok == 2:
         inceput = time.time()
         print('Countsort:')
+        g.write('Countsort: ')
         countsort(vector, max_nr)
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
+        g.write(str(timp_sortare))
+        g.write('\n')
         testare(vector, n)
 
     if ok == 3:
         inceput = time.time()
         print('Radixsort:')
+        g.write('Radixsort: ')
         radixsort(vector)
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
+        g.write(str(timp_sortare))
+        g.write('\n')
         testare(vector, n)
 
     if ok == 4:
         inceput = time.time()
         print('Mergesort:')
+        g.write('Mergesort: ')
         v = mergesort(vector)
         print(v)
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
+        g.write(str(timp_sortare))
+        g.write('\n')
         testare(v, n)
 
     if ok == 5:
         inceput = time.time()
         print('Quicksort:')
+        g.write('Quicksort: ')
         quicksort(vector, 0, n-1)
         print(vector)
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
+        g.write(str(timp_sortare))
         testare(vector, n)
 
     print()
+
+f.close()
