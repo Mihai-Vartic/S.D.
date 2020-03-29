@@ -46,14 +46,15 @@ def radixsort(vector):
                 index += 1
     print(vector)
 
-def mergesort(vector, n):
+def mergesort(vector):
+    n = len(vector)
     if n <= 1:
         return vector
     else:
         mij = n // 2
         n = mij
-        st = mergesort(vector[:mij], n)
-        dr = mergesort(vector[mij:], n)
+        st = mergesort(vector[:mij])
+        dr = mergesort(vector[mij:])
         return interclasare(st, dr)
 
 def interclasare(st, dr):
@@ -130,12 +131,12 @@ for i in range(nr_teste):
     if ok == 4:
         inceput = time.time()
         print('Mergesort:')
-        v = mergesort(vector, n)
+        v = mergesort(vector)
         print(v)
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
-        testare(vector, n)
+        testare(v, n)
 
     if ok == 5:
         inceput = time.time()
