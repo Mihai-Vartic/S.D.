@@ -8,6 +8,14 @@ def generator(nr_numere, max_nr):
         x = random.randint(1, max_nr)
         vector.append(x)
 
+def testare(vector, n):
+    for i in range(n-1):
+        if vector[i] > vector[i+1]:
+            print('Nu e bun.')
+            return
+    print('E bun.')
+    return
+
 def bubblesort(vector, n):
     for i in range(n):
         for j in range(n-i-1):
@@ -99,6 +107,7 @@ for i in range(nr_teste):
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
+        testare(vector, n)
 
     if ok == 2:
         inceput = time.time()
@@ -107,6 +116,7 @@ for i in range(nr_teste):
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
+        testare(vector, n)
 
     if ok == 3:
         inceput = time.time()
@@ -115,6 +125,7 @@ for i in range(nr_teste):
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
+        testare(vector, n)
 
     if ok == 4:
         inceput = time.time()
@@ -124,8 +135,7 @@ for i in range(nr_teste):
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
-
-    v = []
+        testare(vector, n)
 
     if ok == 5:
         inceput = time.time()
@@ -135,5 +145,6 @@ for i in range(nr_teste):
         final = time.time()
         timp_sortare = final - inceput
         print('Timp:', timp_sortare)
+        testare(vector, n)
 
     print()
