@@ -6,75 +6,76 @@ enum Culoare {Rosu, Negru, Dublu};
 
 class Nod
 {
-    int m_info;
-    Nod *m_stanga, *m_dreapta, *m_parinte;
-    Culoare m_culoare;
+    int n_info;
+    Nod *stanga, *dreapta, *parinte;
+    Culoare culoare;
 
 public:
-    Nod(int info = 0, Nod *st = nullptr, Nod *dr = nullptr, Nod *p = nullptr, Culoare culoare = Rosu)
-        : m_info{ info }, m_stanga{ st }, m_dreapta{ dr }, m_parinte{ p }, m_culoare{ culoare }
-    {
 
+    Nod(int info = 0) 
+    { 
+       this -> n_info = info;
+       stanga = dreapta = parinte = NULL; 
+       this -> culoare = Rosu; 
     }
 
-    Nod* getParinte()
+    Nod *getParinte()
     {
-        return m_parinte;
+        return parinte;
     }
 
-    Nod* getSt()
+    Nod *getSt()
     {
-        return m_stanga;
+        return stanga;
     }
 
-    Nod* getDr()
+    Nod *getDr()
     {
-        return m_dreapta;
+        return dreapta;
     }
 
     int getInfo()
     {
-        return m_info;
+        return n_info;
     }
 
-    void setParinte(Nod* p)
+    void setParinte(Nod *p)
     {
-        this -> m_parinte = p;
+        this -> parinte = p;
     }
 
-    void setSt(Nod* st)
+    void setSt(Nod *st)
     {
-        this -> m_stanga = st;
+        this -> stanga = st;
     }
 
-    void setDr(Nod* dr)
+    void setDr(Nod *dr)
     {
-        this -> m_dreapta = dr;
+        this -> dreapta = dr;
     }
 
     void setInfo(int info)
     {
-        this -> m_info = info;
+        this -> n_info = info;
     }
 
     friend Culoare getCuloare(Nod *x);
-    friend void setCuloare(Nod *x, Culoare culoare);
+    friend void setCuloare(Nod *x, Culoare culoare1);
 };
 
 Culoare getCuloare(Nod *x)
 {
     if(x == nullptr)
         return Negru;
-    return x -> m_culoare;
+    return x -> culoare;
 }
 
-void setCuloare(Nod *x, Culoare culoare)
+void setCuloare(Nod *x, Culoare culoare1)
 {
     if(x == nullptr)
         return;
-    x -> m_culoare = culoare;
+    x -> culoare = culoare1;
 }
-
 
 Nod* minValueNode(Nod *&nod)
 {
@@ -84,7 +85,7 @@ Nod* minValueNode(Nod *&nod)
     return ptr;
 }
 
-Nod* maxValueNode(Nod *&nod)
+Nod *maxValueNode(Nod *&nod)
 {
     Nod *ptr = nod;
     while (ptr -> getDr() != nullptr)
@@ -92,7 +93,7 @@ Nod* maxValueNode(Nod *&nod)
     return ptr;
 }
 
-Nod* deleteBST(Nod *&root, int data)
+Nod *deleteBST(Nod *&root, int data)
 {
     if(root == nullptr)
         return root;
@@ -209,8 +210,7 @@ void fix(Nod *&radacina, Nod *&x)
     setCuloare(radacina, Negru);
 }
 
-
-Nod* inserareABC(Nod *&rad, Nod *&x)
+Nod *inserareABC(Nod *&rad, Nod *&x)
 {
     if((rad == nullptr) || (rad -> getInfo() == 0))
         return x;
@@ -246,9 +246,9 @@ void fixDelete(Nod *&radacina, Nod *&nod)
         radacina = nullptr;
         return;
     }
-    if(getCuloare(nod) == Rosu || getCuloare(nod->getSt()) == Rosu || getCuloare(nod->getDr()) == Rosu)
+    if(getCuloare(nod) == Rosu || getCuloare(nod -> getSt()) == Rosu || getCuloare(nod -> getDr()) == Rosu)
     {
-        Nod *copil = nod->getSt() != nullptr ? nod->getSt() : nod->getDr();
+        Nod *copil = nod -> getSt() != nullptr ? nod->getSt() : nod->getDr();
         if(nod == nod -> getParinte() -> getSt())
         {
             nod -> getParinte() -> setSt(copil);
@@ -395,7 +395,7 @@ void cautare(Nod *rad, int x)
         cout << '0';
 }
 
-Nod* gasesteNod(Nod* rad, int val)
+Nod *gasesteNod(Nod* rad, int val)
 {
     if(rad == nullptr || rad->getInfo() == val)
         return rad;
@@ -404,7 +404,7 @@ Nod* gasesteNod(Nod* rad, int val)
     return gasesteNod(rad -> getSt(), val);
 }
 
-Nod* succesor(Nod* rad, int val)
+Nod *succesor(Nod* rad, int val)
 {
     Nod *nod = gasesteNod(rad, val);
     if(nod -> getDr() != nullptr)
@@ -430,7 +430,7 @@ void afisaresuccesor(Nod *rad, int x)
         cout << succ -> getInfo();
 }
 
-Nod* predecesor(Nod* rad, int val)
+Nod *predecesor(Nod* rad, int val)
 {
     Nod *nod = gasesteNod(rad, val);
     if(nod->getSt() != nullptr)
@@ -456,89 +456,84 @@ void afisarepredecesor(Nod *rad, int x)
         cout << pred -> getInfo();
 }
 
-void afisareInterval(Nod* rad, int x, int y)
+void afisareInterval(Nod *rad, int x, int y)
 {
     if(rad == nullptr)
         return;
     if(x < rad -> getInfo())
         afisareInterval(rad->getSt(), x, y);
     if(x < rad -> getInfo() && rad -> getInfo() < y)
-        cout << rad->getInfo() << " ";
+        cout << rad -> getInfo() << " ";
     if(y > rad -> getInfo())
         afisareInterval(rad -> getDr(), x, y);
 }
 
-void afisare(Nod* nod)
+void afisare(Nod *nod)
 {
     if(nod == nullptr)
         return;
     else
     {
         afisare(nod -> getSt());
-        cout << nod->getInfo() << " " << getCuloare(nod) << endl;
+        cout << nod -> getInfo() << " " << getCuloare(nod) << endl;
         afisare(nod -> getDr());
     }
 }
 
 int main()
 {
-    Nod *rad;
-    int nrOp, a, y;
-    char operatie[10], codOp;
-    cout << "Operatia: ";
-    for(nrOp = 0; cin.getline(operatie, 10);)
-    {
-        if(operatie[1] != ' ')
-            cout << "Eroare";
 
-        else
-        {
-            codOp = operatie[0];
-            a = 2;
-            while(operatie[a] != ' ' && a < strlen(operatie))
-                a++;
-            int x = stoi(string(operatie + 2, a - 2));
-            if(codOp == '6')
+  int op, x, y, nrop;
+  Nod *rad = NULL;
+  cout << "Citim numarul de operatii: ";
+  cin >> nrop;
+  
+  for (int i = 0; i <nrop; i++)
+  {
+        cout << "\nCitim operatia si numarul: ";
+        cin >> op >> x;
+        switch(op)
+        { 
+            case 1: //! 1 -> inserare, inseram valoarea
             {
-                int b;
-                b = a + 1;
-                while(operatie[a] != ' ' && a < strlen(operatie))
-                    a++;
-                y = stoi(string(operatie + a + 1, b - 2));
+                insertRBT(rad, x);
+                break;
             }
-            switch(codOp)
+
+            case 2: //! 2 -> delete
             {
-                case '1':
-                    insertRBT(rad, x);
-                    break;
-
-                case '2':
-                    deleteRBT(rad, x);
-                    break;
-
-                case '3':
-                    cautare(rad, x);
-                    break;
-
-                case '4':
-                    afisaresuccesor(rad, x);
-                    break;
-
-                case '5':
-                    afisarepredecesor(rad, x);
-                    break;
-
-                case '6':
-                    afisareInterval(rad, x, y);
-                    break;
-
-                default:
-                    cout << "Operatie incorecta";
+                deleteRBT(rad, x);
+                break;
             }
+
+            case 3: //! 3 -> find val
+            {
+                cautare(rad, x);
+                break;
+            }
+
+            case 4: //! 4 -> succesor(x)
+            {
+                afisaresuccesor(rad, x);
+                break;
+            }
+
+            case 5: //! 5 -> predecesor(x)
+            {
+                afisarepredecesor(rad, x);
+                break;
+            }
+
+            case 6: //! 6 -> afișare interval(x y)
+            {
+                cin >> y;
+                afisareInterval(rad, x, y);
+                break;
+            }
+
+            default:
+                cout << "Operatie incorecta.";
         }
-        cout << endl;
-        cout << "Operatia: ";
-    }
-    return 0;
+  }
+  return 0;
 }
-
