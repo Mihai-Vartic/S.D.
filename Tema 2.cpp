@@ -482,7 +482,6 @@ void afisare(Nod *nod)
 
 int main()
 {
-
   int op, x, y, nrop;
   Nod *rad = NULL;
   cout << "Citim numarul de operatii: ";
